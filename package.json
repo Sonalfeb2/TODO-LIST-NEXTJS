@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "mongodb": "^6.5.0",
     "next": "10.0.7",
     "react": "17.0.1",
     "react-bootstrap": "^2.10.2",
