@@ -5,8 +5,8 @@ const NewTodo = (props) =>{
   const task = useRef();
   const newMeetUp = () =>{
     const obj = {title:task.current.value}
-    console.log(obj)
     props.onAddTodo(obj);
+    task.current.value=''
   }
 return(
     <div id="myDIV" className={styles.header}>

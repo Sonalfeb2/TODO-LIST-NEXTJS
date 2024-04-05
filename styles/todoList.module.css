@@ -8,7 +8,6 @@
   
   /* Style the list items */
   .todo li {
-    width: 50%;
     list-style: none;
     cursor: pointer;
     position: relative;
