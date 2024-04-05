@@ -3,8 +3,11 @@ import NewTodo from "../components/NewTodo";
 import TodoList from "../components/TodoList";
 import { MongoClient } from "mongodb";
 import { useRouter } from "next/router";
+import Toast from "../components/Toast";
+import { useState } from "react";
 export default function Home(props) {
   const router = useRouter();
+  const [showToast, setShowToast] = useState(false)
   const onAddTodo = async obj => {
     const res = await fetch("api/newTodo", {
       method: "POST",
@@ -26,6 +29,8 @@ export default function Home(props) {
       }
     });
     await res.json();
+    setShowToast(true);
+    setTimeout(()=>setShowToast(false),3000)
     router.push("/")
   };
   return (
@@ -35,6 +40,7 @@ export default function Home(props) {
       </Head>
       <NewTodo onAddTodo={e => onAddTodo(e)} />
       <TodoList tasks={props.tasks} onCompletedTask={(id)=>onCompletedTask(id)}/>
+      {showToast && <Toast message="1 Task Completed"/>}
     </div>
   );
 }
@@ -46,7 +52,7 @@ export async function getStaticProps() {
   const client = await MongoClient.connect(url);
   const db = client.db();
   const collection = db.collection("todo");
-  const find = await collection.find().toArray();
+  const find = await collection.find({completed:false}).toArray();
   client.close();
 
   return {
