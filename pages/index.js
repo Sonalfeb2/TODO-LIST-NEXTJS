@@ -7,7 +7,7 @@ import Toast from "../components/Toast";
 import { useState } from "react";
 export default function Home(props) {
   const router = useRouter();
-  const [showToast, setShowToast] = useState(false)
+  const [showToast, setShowToast] = useState({show:false, message:""})
   const onAddTodo = async obj => {
     const res = await fetch("api/newTodo", {
       method: "POST",
@@ -29,18 +29,32 @@ export default function Home(props) {
       }
     });
     await res.json();
-    setShowToast(true);
+    setShowToast({show:true,message:"1 Task COMPLETED..."});
     setTimeout(()=>setShowToast(false),3000)
     router.push("/")
   };
+  const onDeleteHandler = async(e)=>{
+    const res = await fetch("api/newTodo",{
+      method: "DELETE",
+      body: JSON.stringify({id:e}),
+      headers:{
+        "Content-Type": "application/json"
+      }
+    })
+    await res.json();
+    
+    setShowToast({show:true,message:"1 Task DELETED..."});
+    router.push("/")
+  }
+
   return (
     <div>
       <Head>
         <title>TODO LIST</title>
       </Head>
       <NewTodo onAddTodo={e => onAddTodo(e)} />
-      <TodoList tasks={props.tasks} onCompletedTask={(id)=>onCompletedTask(id)}/>
-      {showToast && <Toast message="1 Task Completed"/>}
+      <TodoList tasks={props.tasks} onCompletedTask={(id)=>onCompletedTask(id)} onDeleteHandler={(e)=>onDeleteHandler(e)}/>
+      {showToast.show && <Toast message={showToast.message}/>}
     </div>
   );
 }

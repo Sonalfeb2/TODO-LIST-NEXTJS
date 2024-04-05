@@ -19,6 +19,14 @@ const handler = async (req, res) => {
 
     res.json({message:'success'})
   }
+  if(req.method ==="DELETE"){
+    const data = req.body;
+  
+   await collection.deleteOne({_id: new ObjectId(data.id)})
+  
+
+    res.json({message:'success'})
+  }
   
   client.close();
 };

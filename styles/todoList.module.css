@@ -7,6 +7,9 @@
   }
   
   /* Style the list items */
+  .todo li p{
+    margin: 0;
+  }
   .todo li {
     list-style: none;
     cursor: pointer;
