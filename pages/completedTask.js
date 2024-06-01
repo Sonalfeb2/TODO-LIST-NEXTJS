@@ -30,8 +30,7 @@ const CompletedTask = props => {
   );
 };
 export async function getStaticProps() {
-  const url =
-    "mongodb+srv://sonal:5zsSlXfuybPLlle7@cluster0.9caborj.mongodb.net/todos?retryWrites=true&w=majority&appName=Cluster0";
+  const url = process.env.MONGODB_URL
 
   const client = await MongoClient.connect(url);
   const db = client.db();
