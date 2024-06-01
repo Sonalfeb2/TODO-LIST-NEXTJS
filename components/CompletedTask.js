@@ -1,4 +1,5 @@
 import styles from '../styles/todoList.module.css'
+import { Button } from 'react-bootstrap';
 const Task = props => {
   return (
     <div>
@@ -6,8 +7,8 @@ const Task = props => {
     <ul className={styles.todo}>
       {props.tasks.length > 0
         ? props.tasks.map(li =>
-            <li key={li.id}>
-              {li.title}
+            <li key={li.id} style={{display:'flex',justifyContent:'space-between'}}>
+             <p>{li.title}</p><Button variant='danger' onClick={()=>props.onDeleteHandler(li.id)}>Delete</Button>
             </li>
           )
         : <h1>No Tasks Found</h1>}
