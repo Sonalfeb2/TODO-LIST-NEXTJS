@@ -47,7 +47,7 @@ export async function getStaticProps() {
         id: todo._id.toString()
       }))
     },
-    revalidate: 0
+    revalidate: 1
   };
 }
 export default CompletedTask;
